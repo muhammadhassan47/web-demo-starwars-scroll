@@ -7,6 +7,7 @@
 	https://www.sitepoint.com/html5-javascript-mouse-wheel/ 
 	-->
 
+	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
 		
@@ -61,11 +62,11 @@
 		@keyframes crawl {
 		  0% {
 			top: 0;
-			transform: rotateX(20deg)  translateZ(0);
+			transform: rotateX(30deg)  translateZ(0);
 		  }
 		  100% { 
 			top: -6000px;
-			transform: rotateX(25deg) translateZ(-2500px);
+			transform: rotateX(30deg) translateZ(-5500px);
 		  }
 		}
 
@@ -110,7 +111,7 @@
 			var e = window.event || e; // old IE support
 			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 			
-			sdegree += 2* delta;
+			sdegree += 0.5 * delta;
 				
 			var o = animateText(sdegree);
 			
