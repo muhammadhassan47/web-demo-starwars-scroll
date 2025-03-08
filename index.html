@@ -1,156 +1,211 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	
-	<!-- 
-	REFERENCES 
-	https://css-tricks.com/snippets/css/star-wars-crawl-text/ 
-	https://www.sitepoint.com/html5-javascript-mouse-wheel/ 
-	-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Text</title>
 
-	<meta charset="UTF-8">
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<style>
-		
-		body {
-		  width: 100%;
-		  height: 100%;
-		  background: #000;
-		  overflow: hidden;
-		}
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
 
-		.fade {
-		  position: relative;
-		  width: 100%;
-		  min-height: 60vh;
-		  top: -25px;
-		  background-image: linear-gradient(0deg, transparent, black 75%);
-		  z-index: 1;
-		}
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font: 700 1em "News Cycle", sans-serif;
+            letter-spacing: .15em;
+            color: #ff6;
+            background: #000;
+            overflow: hidden;
+            margin: 0;
+        }
 
-		.star-wars {
-		  display: flex;
-		  justify-content: center;
-		  position: relative;
-		  height: 800px;
-		  color: #feda4a;
-		  font-family: 'Pathway Gothic One', sans-serif;
-		  font-size: 500%;
-		  font-weight: 600;
-		  letter-spacing: 6px;
-		  line-height: 150%;
-		  perspective: 400px;
-		  text-align: justify;
-		}
+        .starwars section {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            z-index: 1;
+        }
 
-		.crawl {
-		  position: relative;
-		  top: 9999px;
-		  transform-origin: 50% 100%;
-		  /*animation: crawl 60s linear;*/
-		}
+        .starwars .start {
+            font-size: 200%;
+            width: 14em;
+            margin: -4em 0 0 -7em;
+            text-align: center;
+            cursor: pointer;
+        }
 
-		.crawl > .title {
-		  font-size: 90%;
-		  text-align: center;
-		}
+        .starwars .start span {
+            color: rgb(75, 213, 238);
+        }
 
-		.crawl > .title h1 {
-		  margin: 0 0 100px;
-		  text-transform: uppercase;
-		}
+        .starwars .intro {
+            width: 15em;
+            margin: 0 0 0 -7.5em;
+            font-size: 200%;
+            font-weight: 400;
+            color: rgb(75, 213, 238);
+            opacity: 0;
+            animation: intro 6s ease-out 1s;
+        }
 
-		@keyframes crawl {
-		  0% {
-			top: 0;
-			transform: rotateX(30deg)  translateZ(0);
-		  }
-		  100% { 
-			top: -6000px;
-			transform: rotateX(30deg) translateZ(-5500px);
-		  }
-		}
+        .starwars .titles {
+            width: 14.65em;
+            margin: 0 0 0 -7.325em;
+            top: auto;
+            bottom: 0;
+            height: 50em;
+            font-size: 350%;
+            text-align: justify;
+            overflow: hidden;
+            transform-origin: 50% 100%;
+            transform: perspective(300px) rotateX(25deg);
+        }
 
-	</style>
+        .starwars .titles > div {
+            position: absolute;
+            top: 100%;
+            animation: titles 81s linear 0.5s;
+            animation-play-state: running;
+        }
+
+        .starwars .titles > div > p {
+            margin: 1.35em 0 1.85em 0;
+            line-height: 1.35em;
+            backface-visibility: hidden;
+        }
+
+        /* Control buttons styling */
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px 20px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(75, 213, 238, 0.5);
+        }
+
+        .controls button {
+            background: linear-gradient(45deg, #0e3462, #1f5bb6);
+            color: #fff;
+            border: 2px solid #4bd5ee;
+            padding: 10px 24px;
+            font-family: "News Cycle", sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 25px;
+            text-transform: uppercase;
+            min-width: 100px;
+            box-shadow: 0 0 10px rgba(75, 213, 238, 0.7);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
+
+        .controls button:hover {
+            background: linear-gradient(45deg, #1f5bb6, #0e3462);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(75, 213, 238, 1);
+        }
+
+        .controls button:active {
+            transform: scale(0.95);
+        }
+
+        .pause-btn {
+            border-color: #ff9e3d !important;
+            box-shadow: 0 0 10px rgba(255, 158, 61, 0.7) !important;
+        }
+
+        .play-btn {
+            border-color: #4bd5ee !important;
+            box-shadow: 0 0 10px rgba(75, 213, 238, 0.7) !important;
+        }
+
+        @keyframes logo {
+            0% {
+                width: 18em;
+                margin: -9em 0 0 -9em;
+                transform: scale(2.75);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+                width: 18em;
+                margin: -9em 0 0 -9em;
+            }
+            100% {
+                transform: scale(0.1);
+                opacity: 0;
+                width: 18em;
+                margin: -9em 0 0 -9em;
+            }
+        }
+
+        @keyframes titles {
+            0% {
+                top: 100%;
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: 20%;
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="controls">
+        <button onclick="pauseScroll()">Pause</button>
+        <button onclick="playScroll()">Play</button>
+    </div>
+    
+    <article class="starwars">
+        <div class="animation">
+            <section class="titles">
+                <div id="scrollText" contenteditable="true" spellcheck="false">
+                    <p>
+                        It is a period of civil war. Rebel spaceships, striking from a hidden
+                        base, have won their first victory against the evil Galactic Empire.
+                    </p>
+            
+                    <p>
+                        During the battle, Rebel spies managed to steal secret plans to the
+                        Empire's ultimate weapon, the DEATH STAR, an armored space station
+                        with enough power to destroy an entire planet.
+                    </p>
+            
+                    <p>
+                        Pursued by the Empire's sinister agents, Princess Leia races home
+                        aboard her starship, custodian of the stolen plan that can save her
+                        people and restore freedom to the galaxy....
+                    </p>
+                </div>
+            </section>
+        </div>
+    </article>
 
-	<div class="fade"></div>
-	
-	<section class="star-wars">
-		
-		<div class="crawl">
-
-			<div class="title">
-			  <p>Episode IV</p>
-			  <h1>A New Hope</h1>
-			</div>
-
-			<p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>     
-			<p>During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
-			<p>Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…</p>
-
-		</div>
-
-	</section>
-	
-	<script>
-		var sdegree = 0;
-			
-		var doc = document;
-		if (doc.addEventListener) {
-			// IE9, Chrome, Safari, Opera
-			doc.addEventListener("mousewheel", MouseWheelHandler, false);
-			// Firefox
-			doc.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
-		}
-		// IE 6/7/8
-		else doc.attachEvent("onmousewheel", MouseWheelHandler);
-		
-		function MouseWheelHandler(e) {
-			// cross-browser wheel delta
-			var e = window.event || e; // old IE support
-			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-			
-			sdegree += 0.5 * delta;
-				
-			var o = animateText(sdegree);
-			
-			$('.crawl').css({
-				'top': o.top + 'px', 
-				'transform': 'rotateX(' + o.rotateX + 'deg) translateZ(' + o.translateZ + 'px)'
-			});
-			
-			return false;
-		}
-		
-		function animateText(step){
-		
-			var limit = {'min': 0, 'max': 100};
-		
-			var top_l = {'min': 0, 'max': -6000};
-			var rotateX_l = {'min': 20, 'max': 25};
-			var translateZ_l = {'min': 0, 'max': -2500};
-			
-			//
-
-			var m_top = (top_l.max - top_l.min) / (limit.max - limit.min);
-			var m_rotateX = (rotateX_l.max - rotateX_l.min) / (limit.max - limit.min);
-			var m_translateZ = (translateZ_l.max - translateZ_l.min) / (limit.max - limit.min);
-				
-			var top = m_top * step + top_l.min;
-			var rotateX = m_rotateX * step + rotateX_l.min; 
-			var translateZ = m_translateZ * step + translateZ_l.min;
-			
-			var output = {
-				'top': top,
-				'rotateX': rotateX, 
-				'translateZ': translateZ
-			};
-			
-			return output;
-			
-		}
-		
-	</script>
+    <script>
+        // Function to pause the scroll animation
+        function pauseScroll() {
+            const scrollText = document.getElementById("scrollText");
+            scrollText.style.animationPlayState = "paused";
+        }
+        
+        // Function to resume the scroll animation
+        function playScroll() {
+            const scrollText = document.getElementById("scrollText");
+            scrollText.style.animationPlayState = "running";
+        }
+    </script>
 </body>
 </html>
